@@ -1,0 +1,10 @@
+charlen = length(startday);
+if charlen == 10
+    startday = [startday(1:4),'-',startday(6:7),'-',startday(9:10)];
+elseif charlen == 8
+    startday = [startday(1:4),'-0',startday(6),'-0',startday(8)];
+elseif charlen == 9 && strcmp(startday(7),'/') == 1
+    startday = [startday(1:4),'-0',startday(6),'-',startday(8:9)];
+else
+    startday = [startday(1:4),'-',startday(6:7),'-0',startday(9)];
+end
