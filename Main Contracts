@@ -1,0 +1,26 @@
+startday = '2015-01-01';
+endday = '2016-03-23';
+[tdays,~]=w.tdays(startday,endday,'TradingCalendar=DCE');
+
+dayNum = length(tdays);
+mainContract = cell(dayNum,1);
+for j = 1 : dayNum
+date = date_change(tdays{j});
+%date = '2016-03-03';
+input = ['date=',date,';sectorid=1000002976000000'];
+[wdata,~] = w.wset('sectorconstituent',input);
+tickers = wdata(:,2);
+
+Num = length(tickers);
+
+for i = 1:Num
+    max = 0;
+    [vol,~] = w.wsd(tickers{i},'volume',date,date);
+    if vol > max
+        max = vol;
+        ticker = tickers{i};
+    else
+    end
+end
+mainContract{j,1} = ticker;
+end
