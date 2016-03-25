@@ -1,0 +1,35 @@
+wdata = totaldata;
+
+Num = length(wdata);
+Cvalue = wdata*0.015;
+num = 1;
+freq = 4;
+trade_freq = 3;
+value = 0.01;
+for i = freq + 1:Num-freq-1
+    if wdata(i,1) - wdata(i-freq,1) >= wdata(i-freq,1)*value 
+        wdata(i,2) = -1;
+        if wdata(i-1,2) == -1
+        else
+        wdata(i+1:i+trade_freq,2+num) = (wdata(i+1:i+trade_freq,1) - wdata(i,1)) * wdata(i,2);
+        num = num + 1;
+        end
+    elseif wdata(i-freq,1) - wdata(i,1) >=  wdata(i-freq,1)*value
+        wdata(i,2) = 1;
+        if wdata(i-1,2) == 1
+        else
+        wdata(i+1:i+trade_freq,2+num) = (wdata(i+1:i+trade_freq,1) - wdata(i,1)) * wdata(i,2);
+        num = num + 1;
+        end
+    else
+    end
+end
+
+ret  = wdata(:,3:end);
+ret = sum (ret,2);
+plot(cumsum(ret))
+
+% reversal_ret = ret;
+% 
+% totalret = trend_ret + reversal_ret;
+% plot(cumsum(totalret))
